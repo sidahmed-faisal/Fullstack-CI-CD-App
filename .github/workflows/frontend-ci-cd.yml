@@ -1,9 +1,10 @@
-project:
-    name: Movies CI/CD
-    version: 1.0.0
-    languages:
-        - Python
-        - Javascript
+# name: Movies CI/CD
+# version: 1.0.0
+# languages:
+#     - Python
+#     - Javascript
+
+name: Movies CI/CD
 
 # Triggers for the workflow
 on:
