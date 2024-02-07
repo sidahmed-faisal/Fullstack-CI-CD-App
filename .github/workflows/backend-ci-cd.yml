@@ -55,9 +55,7 @@ jobs:
             id: tests
             run: pipenv run test
 
-          - name: Build
-            if: steps.lint.outcome == 'success' && steps.tests.outcome == 'success'
-            run: npm run build
+
         
 # Continuous Deployment job
     cd_for_backend:
@@ -87,9 +85,7 @@ jobs:
           id: tests
           run: pipenv run test
 
-        - name: Build
-          if: steps.lint.outcome == 'success' && steps.tests.outcome == 'success'
-          run: npm run build
+ 
         - name: Configure AWS credentials
           uses: aws-actions/configure-aws-credentials@v4
           with:
