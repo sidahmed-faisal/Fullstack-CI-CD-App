@@ -76,6 +76,7 @@ jobs:
         - name: Install dependencies
           run: |
             pip install pipenv --user
+            pip install flask
 
             pipenv install
 
