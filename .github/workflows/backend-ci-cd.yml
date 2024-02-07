@@ -77,7 +77,7 @@ jobs:
         - name: Install dependencies
           run: |
             pip install pipenv --user
-            pip install flake
+            pip install flake8
 
         - name: Linting
           id: lint
