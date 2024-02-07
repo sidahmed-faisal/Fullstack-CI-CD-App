@@ -33,29 +33,29 @@ jobs:
       
       environment:
             name: Deployment
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v3
+      steps:
+          - name: Checkout code
+            uses: actions/checkout@v3
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v3
-              with:
-                node-version: 18.14
+          - name: Setup Node.js
+            uses: actions/setup-node@v3
+            with:
+              node-version: 18.14
         
-            - name: Install dependencies
-              run: npm install
+          - name: Install dependencies
+            run: npm install
 
-            - name: Linting
-              id: lint
-              run: npm run lint --fix
+          - name: Linting
+            id: lint
+            run: npm run lint --fix
 
-            - name: Tests
-              id: tests
-              run: CI=true npm test --passWithNoTests
+          - name: Tests
+            id: tests
+            run: CI=true npm test --passWithNoTests
 
-            - name: Build
-              if: steps.lint.outcome == 'success' && steps.tests.outcome == 'success'
-              run: npm run build
+          - name: Build
+            if: steps.lint.outcome == 'success' && steps.tests.outcome == 'success'
+            run: npm run build
 
   # Continuous Deployment job
     cd:
