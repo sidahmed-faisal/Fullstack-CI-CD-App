@@ -44,9 +44,10 @@ jobs:
         
           - name: Install dependencies
             run: |
-                pip install pipenv --user
-                pip install flake8
-                pip install pytest
+              pip install pipenv --user
+
+              pipenv install
+
 
           - name: Linting
             id: lint
@@ -76,7 +77,6 @@ jobs:
         - name: Install dependencies
           run: |
             pip install pipenv --user
-            pip install flask
 
             pipenv install
 
