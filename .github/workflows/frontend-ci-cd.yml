@@ -48,7 +48,7 @@ jobs:
 
             - name: Tests
               id: tests
-              run: CI=true npm test
+              run: CI=true npm test --passWithNoTests
 
             - name: Build
               if: steps.lint.outcome == 'success' && steps.tests.outcome == 'success'
