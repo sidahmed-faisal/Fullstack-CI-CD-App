@@ -47,7 +47,8 @@ jobs:
               pip install pipenv --user
 
               pipenv install
-
+                
+              pip install flake8
 
           - name: Linting
             id: lint
@@ -80,7 +81,7 @@ jobs:
 
             pipenv install
 
-            # pip install flake8
+            pip install flake8
             # pip install pytest
 
         - name: Linting
