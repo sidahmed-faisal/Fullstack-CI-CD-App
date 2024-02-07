@@ -29,8 +29,10 @@ defaults:
 jobs:
   # Continuous Integration job
     ci:
-        runs-on: ubuntu-latest
-
+      runs-on: ubuntu-latest
+      
+      environment:
+            name: Deployment
         steps:
             - name: Checkout code
               uses: actions/checkout@v3
