@@ -27,6 +27,7 @@ defaults:
     run:
         working-directory: ./frontend
 jobs:
+  # Continuous Integration job
     ci:
         runs-on: ubuntu-latest
 
@@ -53,3 +54,21 @@ jobs:
             - name: Build
               if: steps.lint.outcome == 'success' && steps.tests.outcome == 'success'
               run: npm run build
+
+  # Continuous Deployment job
+    cd:
+      runs-on: ubuntu-latest
+      
+      environment:
+            name: Deployment
+
+      steps:
+          - name: Checkout code
+            uses: actions/checkout@v3
+
+          - name: Setup Node.js
+            uses: actions/setup-node@v3
+            with:
+              node-version: 18.14
+      
+
