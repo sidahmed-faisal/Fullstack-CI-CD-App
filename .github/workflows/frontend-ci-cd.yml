@@ -63,39 +63,42 @@ jobs:
       runs-on: ubuntu-latest
       
       environment:
-            name: Deployment
+        name: Deployment
+
       steps:
           - name: Checkout code
             uses: actions/checkout@v3
-
+    
           - name: Setup Node.js
             uses: actions/setup-node@v3
             with:
               node-version: 18.14
-        
+            
           - name: Install dependencies
             run: npm install
-
+    
           - name: Linting
             id: lint
             run: npm run lint --fix
-
+    
           - name: Tests
             id: tests
             run: CI=true npm test --passWithNoTests
-
+    
           - name: Build
             if: steps.lint.outcome == 'success' && steps.tests.outcome == 'success'
             run: npm run build
-      steps:
-        - name: Configure AWS credentials
-          uses: aws-actions/configure-aws-credentials@v4
-          with:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            aws-session-token: ${{secrets.AWS_SESSION_TOKEN}}
-            aws-region: us-east-1
-        - name: Test correct login
-          run: |
-            aws sts get-caller-identity
+            
+          - name: Configure AWS credentials
+
+            uses: aws-actions/configure-aws-credentials@v4
+            with:
+              aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+              aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+              aws-session-token: ${{secrets.AWS_SESSION_TOKEN}}
+              aws-region: us-east-1
+
+          - name: Test correct login
+            run: |
+              aws sts get-caller-identity
 
