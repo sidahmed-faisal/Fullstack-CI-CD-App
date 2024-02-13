@@ -143,4 +143,4 @@ jobs:
 
           run: |
               cd k8s/
-              kubectl kustomize build | kubectl apply -f -
+              kustomize build | kubectl apply -f -
