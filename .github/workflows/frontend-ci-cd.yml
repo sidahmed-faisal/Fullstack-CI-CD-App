@@ -114,10 +114,17 @@ jobs:
 
           - name: Build the docker image
             env: 
-              ECR_REGISTRY: ${{ steps.ecr.outputs.registry }}
               BACKEND_URL: ${{ secrets.REACT_APP_MOVIE_API_URL }}
-              ECR_REPOSITORY: frontend
+
             run: |
               docker build --build-arg=REACT_APP_MOVIE_API_URL=$BACKEND_URL -t sidahmedfaisal/frontend:${GITHUB_SHA::7} .
               docker push sidahmedfaisal/frontend:${GITHUB_SHA::7}
+        
+          - name: Push Image to ECR:
+            env:
+              ECR_REPOSITORY: frontend
+              ECR_REGISTRY: ${{ steps.ecr.outputs.registry }}
+            run: |
+              docker build --build-arg=REACT_APP_MOVIE_API_URL=$BACKEND_URL -t $ECR_REGISTRY/$ECR_REPOSITORY:${GITHUB_SHA::7} .
+              docker push $ECR_REGISTRY/$ECR_REPOSITORY:${GITHUB_SHA::7}
 
