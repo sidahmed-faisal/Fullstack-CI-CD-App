@@ -129,12 +129,17 @@ jobs:
             EKS_CLUSTER: ${{ secrets.EKS_CLUSTER }}
           run: |
                 aws eks --region us-east-1 update-kubeconfig --name $EKS_CLUSTER
-
-        - name: Deploy Backend image to EKS Cluster
+        
+        - name: Configure image
           env:
-              EKS_CLUSTER: ${{ secrets.EKS_CLUSTER }}
-              ECR_REGISTRY: ${{ steps.ecr.outputs.registry }}
+            EKS_CLUSTER: ${{ secrets.EKS_CLUSTER }}
+            ECR_REGISTRY: ${{ steps.ecr.outputs.registry }}
           run: |
-              cd ./k8s/
               kustomize edit set image backend=$ECR_REGISTRY/$ECR_REPOSITORY:${GITHUB_SHA::7}
+
+        
+        - name: Deploy Backend image to EKS Cluster
+
+          run: |
+              cd k8s/
               kustomize build | kubectl apply -f -
