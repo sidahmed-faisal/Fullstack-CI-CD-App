@@ -121,6 +121,9 @@ jobs:
               docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${GITHUB_SHA::7} .
               docker push $ECR_REGISTRY/$ECR_REPOSITORY:${GITHUB_SHA::7}
 
+        - name: Install kustomize
+          uses: imranismail/setup-kustomize@v2
+        
         - name: Configure kubeconfig file
           env:
             EKS_CLUSTER: ${{ secrets.EKS_CLUSTER }}
@@ -140,4 +143,4 @@ jobs:
 
           run: |
               cd k8s/
-              kustomize build | kubectl apply -f -
+              kubectl kustomize build | kubectl apply -f -
