@@ -127,6 +127,7 @@ jobs:
         - name: Deploy Backend image to EKS Cluster
           env:
               EKS_CLUSTER: ${{ secrets.EKS_CLUSTER }}
+              ECR_REGISTRY: ${{ steps.ecr.outputs.registry }}
           run: |
               aws eks --region us-east-1 update-kubeconfig --name $EKS_CLUSTER
               cd k8s/
