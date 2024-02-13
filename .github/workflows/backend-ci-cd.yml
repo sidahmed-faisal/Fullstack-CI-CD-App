@@ -123,13 +123,18 @@ jobs:
 
         - name: Install kustomize
           uses: imranismail/setup-kustomize@v2
+        
+        - name: Configure kubeconfig file
+          env:
+            EKS_CLUSTER: ${{ secrets.EKS_CLUSTER }}
+          run: |
+                aws eks --region us-east-1 update-kubeconfig --name $EKS_CLUSTER
 
         - name: Deploy Backend image to EKS Cluster
           env:
               EKS_CLUSTER: ${{ secrets.EKS_CLUSTER }}
               ECR_REGISTRY: ${{ steps.ecr.outputs.registry }}
           run: |
-              aws eks --region us-east-1 update-kubeconfig --name $EKS_CLUSTER
-              cd k8s/
+              cd /backend/k8s/
               kustomize edit set image backend=$ECR_REGISTRY/$ECR_REPOSITORY:${GITHUB_SHA::7}
               kustomize build | kubectl apply -f -
