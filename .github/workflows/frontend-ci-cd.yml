@@ -120,7 +120,7 @@ jobs:
               docker build --build-arg=REACT_APP_MOVIE_API_URL=$BACKEND_URL -t sidahmedfaisal/frontend:${GITHUB_SHA::7} .
               docker push sidahmedfaisal/frontend:${GITHUB_SHA::7}
         
-          - name: Push Image to ECR:
+          - name: Push Image to ECR
             env:
               ECR_REPOSITORY: frontend
               ECR_REGISTRY: ${{ steps.ecr.outputs.registry }}
