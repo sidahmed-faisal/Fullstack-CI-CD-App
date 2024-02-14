@@ -2,4 +2,7 @@
 setup/.terraform.lock.hcl
 setup/terraform.tfstate
 setup/terraform.tfstate.backup
+.terraform
+.terraform.tfstate.lock.info
+*.tfstate.backup
 setup/terraform/.terraform/
